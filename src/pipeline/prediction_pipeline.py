@@ -7,26 +7,27 @@ from src.utils.utils import load_object
 
 
 class PredictPipeline:
-
-    
     def __init__(self):
         print("init.. the object")
 
-    def predict(self,features):
+    def predict(self, features):
         try:
-            preprocessor_path=os.path.join("artifacts","preprocessor.pkl")
-            model_path=os.path.join("artifacts","model.pkl")
+            # directory where I want to create the folder
+            parents_folder_path = r"C:\Users\yrobi\Desktop\Robin World\Data Science - Machine Learning Prep\01 - MLOps\MLOps-Project"
+            artifacts_folder_path = os.path.join(parents_folder_path, "artifacts")
+            preprocessor_path = os.path.join(artifacts_folder_path, "preprocessor.pkl")
+            model_path = os.path.join(artifacts_folder_path,"model.pkl")
 
-            preprocessor=load_object(preprocessor_path)
-            model=load_object(model_path)
+            preprocessor = load_object(preprocessor_path)
+            model = load_object(model_path)
 
-            scaled_fea=preprocessor.transform(features)
-            pred=model.predict(scaled_fea)
+            scaled_features = preprocessor.transform(features)
+            pred = model.predict(scaled_features)
 
             return pred
 
         except Exception as e:
-            raise customexception(e,sys)
+            raise customexception(e, sys)
 
 
 class CustomData:
@@ -41,12 +42,12 @@ class CustomData:
                  color:str,
                  clarity:str):
         
-        self.carat=carat
-        self.depth=depth
-        self.table=table
-        self.x=x
-        self.y=y
-        self.z=z
+        self.carat = carat
+        self.depth = depth
+        self.table = table
+        self.x = x
+        self.y = y
+        self.z = z
         self.cut = cut
         self.color = color
         self.clarity = clarity
@@ -67,6 +68,10 @@ class CustomData:
             df = pd.DataFrame(custom_data_input_dict)
             logging.info('Dataframe Gathered')
             return df
+        
         except Exception as e:
             logging.info('Exception Occured in prediction pipeline')
-            raise customexception(e,sys)
+            raise customexception(e, sys)
+        
+obj = PredictPipeline()
+        
