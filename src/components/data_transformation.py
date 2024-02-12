@@ -7,17 +7,16 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
-
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OrdinalEncoder,StandardScaler
+from sklearn.preprocessing import OrdinalEncoder, StandardScaler
 
 from src.utils.utils import save_object
 
 @dataclass
 class DataTransformationConfig:
-    preprocessor_obj_file_path=os.path.join('artifacts','preprocessor.pkl')
+    preprocessor_obj_file_path = os.path.join('artifacts','preprocessor.pkl')
 
 
 class DataTransformation:
