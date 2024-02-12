@@ -14,7 +14,10 @@ from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet
 
 @dataclass 
 class ModelTrainerConfig:
-    trained_model_file_path = os.path.join('artifacts', 'model.pkl')
+    # directory where I want to create the folder
+    parents_folder_path = Path(r"C:\Users\yrobi\Desktop\Robin World\Data Science - Machine Learning Prep\01 - MLOps\MLOps-Project")
+    artifacts_folder_path = os.path.join(parents_folder_path, "artifacts")
+    trained_model_file_path = os.path.join(artifacts_folder_path, 'model.pkl')
     
     
 class ModelTrainer:
@@ -31,14 +34,14 @@ class ModelTrainer:
                 test_array[:,-1]
             )
 
-            models={
+            models = {
             'LinearRegression':LinearRegression(),
             'Lasso':Lasso(),
             'Ridge':Ridge(),
             'Elasticnet':ElasticNet()
         }
             
-            model_report:dict=evaluate_model(X_train,y_train,X_test,y_test,models)
+            model_report:dict = evaluate_model(X_train, y_train, X_test, y_test, models)
             print(model_report)
             print('\n====================================================================================\n')
             logging.info(f'Model Report : {model_report}')
@@ -52,19 +55,19 @@ class ModelTrainer:
             
             best_model = models[best_model_name]
 
-            print(f'Best Model Found , Model Name : {best_model_name} , R2 Score : {best_model_score}')
+            print(f'Best Model Found, Model Name : {best_model_name}, R2 Score : {best_model_score}')
             print('\n====================================================================================\n')
-            logging.info(f'Best Model Found , Model Name : {best_model_name} , R2 Score : {best_model_score}')
+            logging.info(f'Best Model Found, Model Name : {best_model_name}, R2 Score : {best_model_score}')
 
             save_object(
-                 file_path=self.model_trainer_config.trained_model_file_path,
-                 obj=best_model
+                 file_path = self.model_trainer_config.trained_model_file_path,
+                 obj = best_model
             )
           
 
         except Exception as e:
             logging.info('Exception occured at Model Training')
-            raise customexception(e,sys)
+            raise customexception(e, sys)
 
         
     

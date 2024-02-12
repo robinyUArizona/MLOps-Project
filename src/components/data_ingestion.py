@@ -12,9 +12,12 @@ from pathlib import Path
 
 @dataclass
 class DataIngestionConfig:
-    raw_data_path:str = os.path.join("artifacts","raw.csv")
-    train_data_path:str = os.path.join("artifacts","train.csv")
-    test_data_path:str = os.path.join("artifacts","test.csv")
+    # directory where I want to create the folder
+    parents_folder_path = Path(r"C:\Users\yrobi\Desktop\Robin World\Data Science - Machine Learning Prep\01 - MLOps\MLOps-Project")
+    artifacts_folder_path = os.path.join(parents_folder_path, "artifacts")
+    raw_data_path:str = os.path.join(artifacts_folder_path,"raw.csv")
+    train_data_path:str = os.path.join(artifacts_folder_path,"train.csv")
+    test_data_path:str = os.path.join(artifacts_folder_path,"test.csv")
 
 class DataIngestion:
     def __init__(self):
